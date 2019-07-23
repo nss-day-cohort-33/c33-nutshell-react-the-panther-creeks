@@ -1,7 +1,5 @@
 import React, { Component } from "react"
 import EventForm from "./EventForm"
-import { Link } from "react-router-dom"
-import APIManager from "../../modules/APIManager"
 // import "./Event.css"
 
 class Event extends Component {
@@ -23,7 +21,7 @@ class Event extends Component {
                             <div className="card-title">
                                 <h5>{event.name}</h5>
                                 <h6>{event.date}</h6>
-                                <h5><a href={event.url} target="_blank">{event.url}</a></h5>
+                                <h5><a href={event.url} rel="noopener noreferrer" target="_blank">{event.url}</a></h5>
                                 <button
                                     type="button"
                                     className="btn btn-success"

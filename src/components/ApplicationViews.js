@@ -4,6 +4,7 @@ import Welcome from "./Welcome/Welcome"
 import Login from "./Welcome/Login"
 import Register from "./Welcome/Register"
 import Event from "./events/Event"
+import Articles from "./articles/Articles"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router";
 
@@ -63,7 +64,6 @@ class ApplicationViews extends Component {
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
     APIManager.getAll("events").then(allEvents => {
-      console.log("aaaaaaaaaaaaaaaa", allEvents)
       this.setState({
         events: allEvents
       });
@@ -129,9 +129,9 @@ class ApplicationViews extends Component {
         />
 
         <Route
-          path="/news"
+          path="/articles"
           render={props => {
-            if (this.isAuthenticated()) return <div>news</div>
+            if (this.isAuthenticated()) return <Articles articles={this.state.articles} {...props} addItem={this.addItem}/>
             else return <Redirect to="/welcome" />
           }}
         />
