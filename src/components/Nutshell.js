@@ -1,43 +1,48 @@
-import React, { Component } from "react";
-import NavBar from "./nav/NavBar";
-import ApplicationViews from "./ApplicationViews";
-import "./Nutshell.css";
+import React, { Component } from "react"
+import NavBar from "./nav/NavBar"
+import ApplicationViews from "./ApplicationViews"
+import "./Nutshell.css"
 
 class Nutshell extends Component {
   state = {
-    activeUser: ""
+    id: ""
   }
 
-  setUser = (email) => {
+  isAuthenticated = () => {
+    return sessionStorage.getItem("activeUser") !== null
+  }
+
+  setUser = activeUserId => {
     //return one user
-    fetch(`http://localhost:5002/users?email=${email}`)
-      .then(response => response.json())
-      .then(userObject => {
-        let newState = {}
-        newState.activeUser = userObject.id
-        this.setState(newState)
-      })
+    let newState = {}
+    newState.activeUser = activeUserId
+    this.setState(newState)
   }
 
   render() {
-    if (this.state.activeUser) {
+    if (this.isAuthenticated()) {
       //if there is an active user
       return (
         <React.Fragment>
           <NavBar />
-          <ApplicationViews activeUser={this.state.activeUser} setUser={this.setUser}/>
+          <ApplicationViews
+            activeUser={this.state.activeUser}
+            setUser={this.setUser}
+          />
         </React.Fragment>
-      );
-      }
-    else {
+      )
+    } else {
       // there is no active user
-        return (
-          <React.Fragment>
-            <ApplicationViews activeUser={this.state.activeUser} setUser={this.setUser}/>
-          </React.Fragment>
-        );
-      }
+      return (
+        <React.Fragment>
+          <ApplicationViews
+            activeUser={this.state.activeUser}
+            setUser={this.setUser}
+          />
+        </React.Fragment>
+      )
     }
+  }
 }
 
-export default Nutshell;
+export default Nutshell

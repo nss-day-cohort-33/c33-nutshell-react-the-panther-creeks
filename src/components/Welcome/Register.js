@@ -53,6 +53,8 @@ export default class Register extends Component {
                 .then(user => {
                   //set sessionStorage
                   sessionStorage.setItem("activeUser", user[0].id)
+                  this.props.setUser(user[0].id)
+
                   //routing to dashboard
                   this.props.history.push("/")
                   console.log(user)

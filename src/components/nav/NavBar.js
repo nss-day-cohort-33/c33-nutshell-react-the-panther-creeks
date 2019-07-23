@@ -4,6 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 
 class NavBar extends Component {
+
+    logout = () => {
+        sessionStorage.clear()
+    }
+
     render() {
         return (
             <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
@@ -20,6 +25,9 @@ class NavBar extends Component {
                     <li className="nav-item">
                         <Link className="nav-link" to="/tasks">Tasks</Link>
                     </li>
+                    <Link className="nav-link"  to="/welcome">
+                        <button onClick={this.logout} className="nav-item">Logout</button>
+                    </Link>
                 </ul>
             </nav>
         )

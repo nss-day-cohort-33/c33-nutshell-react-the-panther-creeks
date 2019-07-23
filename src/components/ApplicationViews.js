@@ -11,6 +11,7 @@ export default class ApplicationViews extends Component {
   render() {
     return (
       <React.Fragment>
+
         <Route
           exact
           path="/"
@@ -49,6 +50,14 @@ export default class ApplicationViews extends Component {
           path="/friends"
           render={props => {
             if (this.isAuthenticated()) return <div>friends</div>
+            else return <Redirect to="/welcome" />
+          }}
+        />
+
+        <Route
+          path="/events"
+          render={props => {
+            if (this.isAuthenticated()) return <div>events</div>
             else return <Redirect to="/welcome" />
           }}
         />
