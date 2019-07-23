@@ -41,7 +41,7 @@ export default class ApplicationViews extends Component {
           exact
           path="/register"
           render={props => {
-            return <Register setUser={this.props.setUser} />
+            return <Register setUser={this.props.setUser} {...props}/>
           }}
         />
 
