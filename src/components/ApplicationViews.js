@@ -63,6 +63,14 @@ export default class ApplicationViews extends Component {
         />
 
         <Route
+          path="/news"
+          render={props => {
+            if (this.isAuthenticated()) return <div>news</div>
+            else return <Redirect to="/welcome" />
+          }}
+        />
+
+        <Route
           path="/messages"
           render={props => {
             if (this.isAuthenticated()) return <div>messages</div>
