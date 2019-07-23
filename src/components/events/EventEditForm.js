@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import APIManager from "../../modules/APIManager";
 // import "./Event.css"
 
 class EventForm extends Component {
@@ -9,6 +10,18 @@ class EventForm extends Component {
     user_id: +sessionStorage.getItem("activeUser")
   };
 
+  componentDidMount() {
+    APIManager.get("events", this.props.match.params.eventId)
+    .then(event => {
+      this.setState({
+        id: this.props.match.params.eventId,
+        name: event.name,
+        date: event.date,
+        location: event.location
+      });
+    });
+  }
+
   checkFields = (event) => {
     if (
       this.state.name === "" ||
@@ -18,7 +31,7 @@ class EventForm extends Component {
       window.alert("All fields must be filled out");
     } else {
       event.preventDefault()
-      this.props.addItem("events", this.state);
+      this.props.updateItem("events", this.state);
     }
   };
 
@@ -30,6 +43,7 @@ class EventForm extends Component {
 
   render() {
     //if there is an active user
+    console.log(this.props)
     return (
       <React.Fragment>
         <form className="eventForm">
@@ -41,7 +55,7 @@ class EventForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="name"
-              value={this.state.eventName}
+              value={this.state.name}
             />
             <label htmlFor="date">Date</label>
             <input
@@ -50,7 +64,7 @@ class EventForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="date"
-              value={this.state.eventDate}
+              value={this.state.date}
             />
             <label htmlFor="location">Location</label>
             <input
@@ -59,14 +73,14 @@ class EventForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="location"
-              value={this.state.eventlocation}
+              value={this.state.location}
             />
             <button
               type="submit"
               onClick={this.checkFields}
               className="btn btn-primary"
             >
-              Submit
+              Save Changes
             </button>
           </div>
         </form>

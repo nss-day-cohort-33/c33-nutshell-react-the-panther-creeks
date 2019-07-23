@@ -21,17 +21,16 @@ class Event extends Component {
                             <div className="card-title">
                                 <h5>{event.name}</h5>
                                 <h6>{event.date}</h6>
-                                <h5><a href={event.url} rel="noopener noreferrer" target="_blank">{event.url}</a></h5>
+                                <h5>{event.location}</h5>
                                 <button
                                     type="button"
                                     className="btn btn-success"
-                                    // onClick=
-                                    // {() =>
-                                    //     {
-                                    //     this.props.history.push(`/events/${event.id}/edit`);
-                                    //     }
-                                    // }>
-                                    >
+                                    onClick=
+                                    {() =>
+                                        {
+                                        this.props.history.push(`/events/${event.id}/edit`);
+                                        }
+                                    }>
                                     Edit
                                 </button>
                             <a href="#"

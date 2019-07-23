@@ -7,6 +7,7 @@ import Event from "./events/Event"
 import Articles from "./articles/Articles"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router";
+import EventEditForm from "./events/EventEditForm"
 
 class ApplicationViews extends Component {
 
@@ -35,24 +36,26 @@ class ApplicationViews extends Component {
   };
 
   updateItem = (name, editedObject) => {
+    let newObj = {};
     return APIManager.put(name, editedObject)
     .then(() => APIManager.getAll(name))
-    .then(animals => {
-      this.setState({
-        animals: animals
-      })
-    });
+    .then(item =>
+      {
+          newObj[name] = item;
+          this.setState(newObj);
+      }
+    )
+    .then(() =>
+        this.props.history.push(`/${name}`))
   };
 
   addItem = (name, item) =>
   {
-    console.log("asefjoiej", name, item)
     let newObj = {};
     APIManager.post(name, item)
       .then(() => APIManager.getAll(name))
       .then(items =>
         {
-            console.log(items)
             newObj[name] = items;
             this.setState(newObj);
         }
@@ -121,9 +124,24 @@ class ApplicationViews extends Component {
         />
 
         <Route
+          exact
           path="/events"
           render={props => {
             if (this.isAuthenticated()) return <Event events={this.state.events} {...props} addItem={this.addItem}/>
+            else return <Redirect to="/welcome" />
+          }}
+        />
+
+        <Route
+          path="/events/:eventId(\d+)/edit"
+          render={props => {
+            console.log(this.state)
+            if (this.isAuthenticated()) return (
+              <EventEditForm
+                {...props}
+                updateItem={this.updateItem}
+              />
+            );
             else return <Redirect to="/welcome" />
           }}
         />
