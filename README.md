@@ -1,3 +1,9 @@
+# The Panther Creeks
+
+### Setup instructions
+### Usage
+### Special Notes
+
 # Nutshell: The Information Dashboard
 
 Nutshell is a new product offering that you have been tasked with building. It's a dashboard for people to use to organize their daily tasks, events, news article, friends, and chat messages.
@@ -44,7 +50,7 @@ To start you off, here's an example of what the resources in your API should loo
 
 ## Professional Requirements
 
-1. All teammates must use React and JSON-server. 
+1. All teammates must use React and JSON-server.
 1. Each module should have a comment at the top with the following info: author(s) and purpose of module
 1. The README for your project should include instructions on how another person can download and run the application
 

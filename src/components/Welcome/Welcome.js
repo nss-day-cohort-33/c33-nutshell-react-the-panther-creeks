@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
-// import { Route, Redirect } from "react-router-dom";
 
 export default class Welcome extends Component {
   buttonClick = (event) => {
-    console.log(event.target.id)
+    if (event.target.id === "login") {
+      console.log("login button")
+      this.props.history.push("/login")
+    }
+    else if (event.target.id === "register") {
+      console.log('reg button')
+      this.props.history.push("/register")
+    }
   }
   render() {
     console.log(this.props)

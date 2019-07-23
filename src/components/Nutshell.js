@@ -20,7 +20,7 @@ class Nutshell extends Component {
   }
 
   render() {
-    if (this.state.activeUser !== "") {
+    if (this.state.activeUser) {
       //if there is an active user
       return (
         <React.Fragment>
@@ -33,7 +33,6 @@ class Nutshell extends Component {
       // there is no active user
         return (
           <React.Fragment>
-            {/* <NavBar /> */}
             <ApplicationViews activeUser={this.state.activeUser} setUser={this.setUser}/>
           </React.Fragment>
         );
