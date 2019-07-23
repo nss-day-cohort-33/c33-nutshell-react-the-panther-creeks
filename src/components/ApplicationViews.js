@@ -2,12 +2,78 @@ import { Route, Redirect } from "react-router-dom"
 import React, { Component } from "react"
 import Welcome from "./Welcome/Welcome"
 import Login from "./Welcome/Login"
-import Register from "./Welcome/Register";
+import Register from "./Welcome/Register"
+import Event from "./events/Event"
+import APIManager from "../modules/APIManager"
+import { withRouter } from "react-router";
 
-export default class ApplicationViews extends Component {
+class ApplicationViews extends Component {
+
+  state = {
+    events: [],
+    articles: [],
+    tasks: [],
+    messages: [],
+    friends: []
+  };
+
+  deleteItem = (name, id) => {
+    console.log("inside delete item");
+    let newObj = {};
+    return fetch(`http://localhost:5002/${name}/${id}`, {
+      method: "DELETE"
+    })
+      .then(e => e.json())
+      .then(() => APIManager.getAll(name))
+      .then(group => {
+        newObj[name] = group;
+        this.setState(newObj);
+        console.log(name, newObj, this.state);
+        this.props.history.push(`/${name}`);
+      });
+  };
+
+  updateItem = (name, editedObject) => {
+    return APIManager.put(name, editedObject)
+    .then(() => APIManager.getAll(name))
+    .then(animals => {
+      this.setState({
+        animals: animals
+      })
+    });
+  };
+
+  addItem = (name, item) =>
+  {
+    console.log("asefjoiej", name, item)
+    let newObj = {};
+    APIManager.post(name, item)
+      .then(() => APIManager.getAll(name))
+      .then(items =>
+        {
+            console.log(items)
+            newObj[name] = items;
+            this.setState(newObj);
+        }
+      )
+      .then(() =>
+        this.props.history.push(`/${name}`))
+  }
+
+  componentDidMount() {
+    // Example code. Make this fit into how you have written yours.
+    APIManager.getAll("events").then(allEvents => {
+      console.log("aaaaaaaaaaaaaaaa", allEvents)
+      this.setState({
+        events: allEvents
+      });
+    });
+  }
+
   isAuthenticated = () => {
     return sessionStorage.getItem("activeUser") !== null
   }
+
   render() {
     return (
       <React.Fragment>
@@ -57,7 +123,7 @@ export default class ApplicationViews extends Component {
         <Route
           path="/events"
           render={props => {
-            if (this.isAuthenticated()) return <div>events</div>
+            if (this.isAuthenticated()) return <Event events={this.state.events} {...props} addItem={this.addItem}/>
             else return <Redirect to="/welcome" />
           }}
         />
@@ -89,3 +155,5 @@ export default class ApplicationViews extends Component {
     )
   }
 }
+
+export default withRouter(ApplicationViews);
