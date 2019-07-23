@@ -24,6 +24,7 @@ export default class Login extends Component {
             console.log(user[0])
             //set sessionStorage
             sessionStorage.setItem("activeUser", user[0].id)
+            this.props.setUser(user[0].id)
             //routing to dashboard
             this.props.history.push("/")
           }
