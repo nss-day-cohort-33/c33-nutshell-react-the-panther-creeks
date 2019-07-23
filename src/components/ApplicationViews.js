@@ -2,6 +2,7 @@ import { Route, Redirect } from "react-router-dom"
 import React, { Component } from "react"
 import Welcome from "./Welcome/Welcome"
 import Login from "./Welcome/Login"
+import Register from "./Welcome/Register";
 
 export default class ApplicationViews extends Component {
   isAuthenticated = () => {
@@ -32,7 +33,7 @@ export default class ApplicationViews extends Component {
           exact
           path="/login"
           render={props => {
-            return <Login {...props}/>
+            return <Login setUser={this.props.setUser} {...props}/>
           }}
         />
 
@@ -40,7 +41,7 @@ export default class ApplicationViews extends Component {
           exact
           path="/register"
           render={props => {
-            return <div>registerpage</div>
+            return <Register setUser={this.props.setUser} {...props}/>
           }}
         />
 
