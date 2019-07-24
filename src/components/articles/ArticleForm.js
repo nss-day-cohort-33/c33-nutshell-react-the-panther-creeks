@@ -51,6 +51,7 @@ class ArticleForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="date"
+              value={Date()}
             />
             <label htmlFor="synopsis">synopsis</label>
             <input
