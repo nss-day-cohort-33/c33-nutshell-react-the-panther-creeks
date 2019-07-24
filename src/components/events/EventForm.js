@@ -10,6 +10,13 @@ class EventForm extends Component {
     user_id: +sessionStorage.getItem("activeUser")
   };
 
+  clearFields = () =>
+  {
+      document.getElementById("name").value = ""
+      document.getElementById("date").value = ""
+      document.getElementById("location").value = ""
+  }
+
   checkFields = (event) => {
     if (
       this.state.name === "" ||
@@ -20,6 +27,7 @@ class EventForm extends Component {
     } else {
       event.preventDefault()
       this.props.addItem("events", this.state);
+      this.clearFields()
     }
   };
 

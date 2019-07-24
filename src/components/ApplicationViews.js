@@ -39,8 +39,7 @@ class ApplicationViews extends Component {
     let newObj = {};
     console.log(editedObject)
     return APIManager.put(name, editedObject)
-
-    .then(() => APIManager.getAll(name))
+    .then(() => APIManager.getAll(`${name}?user_id=${+sessionStorage.getItem("activeUser")}`))
     .then(item =>
       {
           newObj[name] = item;
@@ -55,7 +54,7 @@ class ApplicationViews extends Component {
   {
     let newObj = {};
     APIManager.post(name, item)
-      .then(() => APIManager.getAll(name))
+      .then(() => APIManager.getAll(`${name}?user_id=${+sessionStorage.getItem("activeUser")}`))
       .then(items =>
         {
             newObj[name] = items;
@@ -69,10 +68,9 @@ class ApplicationViews extends Component {
 
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
-
-     APIManager.getAll("tasks").then(allTasks => {
-       this.setState({
-         tasks: allTasks
+    APIManager.getAll(`events?user_id=${+sessionStorage.getItem("activeUser")}`).then(allEvents => {
+      this.setState({
+        events: allEvents
       });
     });
   }
