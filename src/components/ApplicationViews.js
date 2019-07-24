@@ -4,6 +4,7 @@ import Welcome from "./Welcome/Welcome"
 import Login from "./Welcome/Login"
 import Register from "./Welcome/Register"
 import Event from "./events/Event"
+import Task from "./tasks/Task"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router";
 import EventEditForm from "./events/EventEditForm"
@@ -65,9 +66,10 @@ class ApplicationViews extends Component {
 
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
-    APIManager.getAll("events").then(allEvents => {
-      this.setState({
-        events: allEvents
+
+     APIManager.getAll("tasks").then(allTasks => {
+       this.setState({
+         tasks: allTasks
       });
     });
   }
@@ -164,7 +166,7 @@ class ApplicationViews extends Component {
         <Route
           path="/tasks"
           render={props => {
-            if (this.isAuthenticated()) return <div>tasks</div>
+            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem}/>
             else return <Redirect to="/welcome" />
           }}
         />
