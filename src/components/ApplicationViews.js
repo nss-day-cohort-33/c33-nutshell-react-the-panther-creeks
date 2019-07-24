@@ -37,7 +37,9 @@ class ApplicationViews extends Component {
 
   updateItem = (name, editedObject) => {
     let newObj = {};
+    console.log(editedObject)
     return APIManager.put(name, editedObject)
+
     .then(() => APIManager.getAll(name))
     .then(item =>
       {
@@ -63,6 +65,7 @@ class ApplicationViews extends Component {
       .then(() =>
         this.props.history.push(`/${name}`))
   }
+
 
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
@@ -166,7 +169,7 @@ class ApplicationViews extends Component {
         <Route
           path="/tasks"
           render={props => {
-            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem}/>
+            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem} updateItem={this.updateItem} />
             else return <Redirect to="/welcome" />
           }}
         />

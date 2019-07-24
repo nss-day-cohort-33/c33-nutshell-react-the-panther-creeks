@@ -1,41 +1,162 @@
 import React, { Component } from "react"
 import TaskForm from "./TaskForm"
+import APIManager from "../../modules/APIManager";
+import { KeyObject } from "crypto";
 
 // import "./Event.css"
 
 class Task extends Component {
+
+
   state = {
-    tasks: []
+        id: "",
+        name: "",
+        text: "",
+        duedate: "",
+        isCompleted: "",
+        user_id: ""
   }
 
+  handleFieldChange = evt => {
+    evt.preventDefault()
+    const stateToChange = {}
+    stateToChange["name"] = evt.target.value
+    console.log(stateToChange)
+    this.setState(stateToChange)
+    console.log(this.state)
+  }
+
+
+  taskComplete= (id) => {
+    APIManager.get("tasks", id )
+    .then(task => {console.log(task)
+      this.setState({
+        id: task.id,
+        name: task.name,
+        text: task.text,
+        duedate: task.duedate,
+        isCompleted: true,
+        user_id: task.user_id
+      });
+      }
+      )
+      .then(() => this.props.updateItem("tasks", this.state))
+  }
+
+  editTaskName = (event) => {
+    let otherInputs = document.querySelectorAll(".nameInput")
+    let otherTaskHeads = document.querySelectorAll(".taskHead")
+    otherTaskHeads.forEach(head => head.style.display = "block")
+    otherInputs.forEach(input => input.style.display = "none")
+    let taskId = event.target.id.split("-")[1]
+    let inputId = document.getElementById(`taskEditForm-${taskId}`)
+      if (inputId.style.display === "none")  {
+        inputId.style.display = "block"
+      } else { inputId.style.display = "none"}
+
+      let taskName = document.getElementById(`taskName-${taskId}`)
+      if (taskName.style.display === "block") {
+        taskName.style.display = "none"
+      } else {taskName.style.display = "block"}
+
+
+    }
+
+  saveEditedTask = (event) => {
+    if (event.key==="Enter") {
+        let id = (event.target.id.split("-")[1])
+        console.log(id)
+        APIManager.get("tasks", id).then(task => {
+
+          let  editedTask = {
+           id: task.id,
+           name: this.state.name,
+           text: task.text,
+           duedate: task.duedate,
+           isCompleted: task.isCompleted,
+           user_id: task.user_id
+          }
+
+          this.props.updateItem("tasks", editedTask)
+          .then(() => {
+            let inputId = document.getElementById(`taskEditForm-${id}`)
+            inputId.style.display= "none"
+            let taskName = document.getElementById(`taskName-${id}`)
+            taskName.style.display = "block"
+          }
+          )
+        })
+      }
+    }
+
+
+
+
+
+  hide = {
+    display: "none"
+
+  }
+show = {
+  display: "block"
+}
+
+
+  renderFalseCards = (task) => {
+    if (!task.isCompleted ) {
+      return (
+
+    <div key={task.id} id={task.id} className="card card--event">
+            <div className="card-body">
+                <div className="card-title">
+                  <div id= {`taskNameDiv-${task.id}`}>
+                  <input type="text"
+                         className="nameInput"
+                         id= {`taskEditForm-${task.id}`}
+                         style= {this.hide}
+                         placeholder= {task.name}
+                         onChange= {this.handleFieldChange}
+                         onKeyPress= {this.saveEditedTask}
+                          />
+
+                    <h5
+                      className="taskHead"
+                      style= {this.show}
+                      id= {`taskName-${task.id}`}
+                      onClick=  {this.editTaskName}>{task.name}</h5>
+                  </div>
+                    <h6>{task.text}</h6>
+                    <h5>{task.duedate}</h5>
+
+                    <input type="checkbox"
+                     id = {task.id}
+                     className ="isComplete"
+                     onClick=  {() => this.taskComplete(task.id)}
+                     />
+                    <label htmlFor= "isComplete">Task Complete</label>
+
+                </div>
+            </div>
+        </div>
+    )
+  }
+}
+
   render() {
-      //if there is an active user
+    //if there is an active user
       console.log(this.props)
       return (
         <React.Fragment>
           <TaskForm {...this.props}/>
           <section className="Tasks">
           {
-            this.props.tasks.filter(task => task.user_id === +sessionStorage.getItem("activeUser")).map(task =>
-                <div key={task.id} className="card card--event">
-                        <div className="card-body">
-                            <div className="card-title">
-                                <h5>{task.name}</h5>
-                                <h6>{task.text}</h6>
-                                <h5>{task.duedate}</h5>
+            this.props.tasks.filter(task => task.user_id === +sessionStorage.getItem("activeUser") &&!task.isCompleted).map(task =>this.renderFalseCards(task))
 
-                                <input type="checkbox" id = "isComplete" class ="isComplete"/>
-                                <label htmlFor= "isComplete">Task Complete</label>
-
-                            </div>
-                        </div>
-                    </div>
-            )
           }
           </section>
         </React.Fragment>
       )
   }
-}
 
-export default Task
+}
+  export default Task
