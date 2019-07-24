@@ -37,7 +37,7 @@ class ApplicationViews extends Component {
   updateItem = (name, editedObject) => {
     let newObj = {};
     return APIManager.put(name, editedObject)
-    .then(() => APIManager.getAll(name))
+    .then(() => APIManager.getAll(`${name}?user_id=${+sessionStorage.getItem("activeUser")}`))
     .then(item =>
       {
           newObj[name] = item;
