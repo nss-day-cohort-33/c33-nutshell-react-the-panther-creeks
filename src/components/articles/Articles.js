@@ -5,11 +5,15 @@ import "./Articles.css"
 
 class Articles extends Component {
   render() {
+    let moment = require("moment")
     return (
       <React.Fragment>
-        <ArticleForm {...this.props} />
+        <ArticleForm moment={moment} {...this.props} />
         <section className="articles">
-          {this.props.articles.map(article => (
+          {
+            this.props.articles.sort((a, b) => {
+              return moment(a.date).unix() - moment(b.date).unix()
+            }).map(article => (
             <div key={article.id} className="card card--article">
               <div className="card-body">
                 <div className="card-title">
