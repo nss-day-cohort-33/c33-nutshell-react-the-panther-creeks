@@ -52,7 +52,7 @@ class ApplicationViews extends Component {
   {
     let newObj = {};
     APIManager.post(name, item)
-      .then(() => APIManager.getAll(name))
+      .then(() => APIManager.getAll(`${name}?user_id=${+sessionStorage.getItem("activeUser")}`))
       .then(items =>
         {
             newObj[name] = items;
