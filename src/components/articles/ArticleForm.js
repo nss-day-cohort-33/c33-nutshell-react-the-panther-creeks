@@ -1,5 +1,5 @@
+//Joe Kennerly
 import React, { Component } from "react";
-// import "./Event.css"
 
 class ArticleForm extends Component {
   state = {
@@ -33,16 +33,16 @@ class ArticleForm extends Component {
     //if there is an active user
     return (
       <React.Fragment>
-        <form className="eventForm">
+        <form className="articleForm">
           <div className="form-group">
-            <label htmlFor="name">Event name</label>
+            <label htmlFor="name">Article name</label>
             <input
               type="text"
+              autoFocus
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="name"
-              value={this.state.eventName}
+              id="title"
             />
             <label htmlFor="date">Date</label>
             <input
@@ -51,16 +51,22 @@ class ArticleForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="date"
-              value={this.state.eventDate}
             />
-            <label htmlFor="location">Location</label>
+            <label htmlFor="synopsis">synopsis</label>
             <input
               type="text"
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="location"
-              value={this.state.eventlocation}
+              id="synopsis"
+            />
+            <label htmlFor="url">url</label>
+            <input
+              type="text"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="url"
             />
             <button
               type="submit"
