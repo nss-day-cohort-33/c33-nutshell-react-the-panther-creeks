@@ -6,6 +6,7 @@ import Register from "./Welcome/Register"
 import Event from "./events/Event"
 import Articles from "./articles/Articles"
 import ArticleEditForm from "./articles/ArticleEditForm"
+import Messages from "./messages/Messages"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router"
 import EventEditForm from "./events/EventEditForm"
@@ -62,8 +63,16 @@ class ApplicationViews extends Component {
     const newState = {}
     APIManager.getAll("events")
       .then(allEvents => (newState.events = allEvents))
-      .then(() => APIManager.getAll(`articles?user_id=${+sessionStorage.getItem("activeUser")}`))
+      .then(() =>
+        APIManager.getAll(
+          `articles?user_id=$+sessionStorage.getItem("activeUser")}`
+        )
+      )
       .then(allArticles => (newState.articles = allArticles))
+      .then(() => APIManager.getAll("messages"))
+      .then(allMessages => (newState.messages = allMessages))
+      .then(() => APIManager.getAll("users"))
+      .then(allUsers => (newState.users = allUsers))
       .then(() => this.setState(newState))
   }
 
@@ -169,9 +178,18 @@ class ApplicationViews extends Component {
         />
 
         <Route
+          exact
           path="/messages"
           render={props => {
-            if (this.isAuthenticated()) return <div>messages</div>
+            if (this.isAuthenticated())
+              return (
+                <Messages
+                  users={this.state.users}
+                  messages={this.state.messages}
+                  addItem={this.addItem}
+                  deleteItem={this.deleteItem}
+                />
+              )
             else return <Redirect to="/welcome" />
           }}
         />
