@@ -65,7 +65,7 @@ class ApplicationViews extends Component {
 
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
-    APIManager.getAll("events").then(allEvents => {
+    APIManager.getAll(`events?user_id=${+sessionStorage.getItem("activeUser")}`).then(allEvents => {
       this.setState({
         events: allEvents
       });
