@@ -62,7 +62,7 @@ class ApplicationViews extends Component {
     const newState = {}
     APIManager.getAll("events")
       .then(allEvents => (newState.events = allEvents))
-      .then(() => APIManager.getAll("articles"))
+      .then(() => APIManager.getAll(`articles?user_id=${+sessionStorage.getItem("activeUser")}`))
       .then(allArticles => (newState.articles = allArticles))
       .then(() => this.setState(newState))
   }
