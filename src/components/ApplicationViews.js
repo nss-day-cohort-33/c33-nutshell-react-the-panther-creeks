@@ -140,7 +140,7 @@ class ApplicationViews extends Component {
         <Route
           path="/friends"
           render={props => {
-            if (this.isAuthenticated()) return <Friends friends={this.state.friends} users={this.state.users}/>
+            if (this.isAuthenticated()) return <Friends deleteItem={this.deleteItem} friends={this.state.friends} users={this.state.users}/>
             else return <Redirect to="/welcome" />
           }}
         />
