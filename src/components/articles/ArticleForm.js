@@ -25,7 +25,7 @@ class ArticleForm extends Component {
       window.alert("All fields must be filled out");
     } else {
       event.preventDefault()
-      this.props.addItem(`articles?user_id=${+sessionStorage.getItem("activeUser")}`, this.state);
+      this.props.addItem("articles", this.state);
       this.clearFields()
     }
   };
