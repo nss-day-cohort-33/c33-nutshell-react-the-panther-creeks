@@ -40,5 +40,10 @@ export default Object.create(null, {
         method: "DELETE",
       }).then(data => data.json());
     }
+  },
+  getLike: {
+    value (name, word) {
+      return fetch(`${remoteURL}/${name}?username_like=${word}`).then(data => data.json());
+    }
   }
 })
