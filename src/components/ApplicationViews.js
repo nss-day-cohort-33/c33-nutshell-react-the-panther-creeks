@@ -4,6 +4,7 @@ import Welcome from "./Welcome/Welcome"
 import Login from "./Welcome/Login"
 import Register from "./Welcome/Register"
 import Event from "./events/Event"
+import Task from "./tasks/Task"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router";
 import EventEditForm from "./events/EventEditForm"
@@ -36,6 +37,7 @@ class ApplicationViews extends Component {
 
   updateItem = (name, editedObject) => {
     let newObj = {};
+    console.log(editedObject)
     return APIManager.put(name, editedObject)
     .then(() => APIManager.getAll(`${name}?user_id=${+sessionStorage.getItem("activeUser")}`))
     .then(item =>
@@ -63,11 +65,12 @@ class ApplicationViews extends Component {
         this.props.history.push(`/${name}`))
   }
 
+
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
-    APIManager.getAll(`events?user_id=${+sessionStorage.getItem("activeUser")}`).then(allEvents => {
+    APIManager.getAll(`tasks?user_id=${+sessionStorage.getItem("activeUser")}`).then(allTasks => {
       this.setState({
-        events: allEvents
+        tasks: allTasks
       });
     });
   }
@@ -164,7 +167,7 @@ class ApplicationViews extends Component {
         <Route
           path="/tasks"
           render={props => {
-            if (this.isAuthenticated()) return <div>tasks</div>
+            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem} updateItem={this.updateItem} deleteItem={this.deleteItem} />
             else return <Redirect to="/welcome" />
           }}
         />

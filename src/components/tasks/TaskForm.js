@@ -1,32 +1,26 @@
 import React, { Component } from "react";
+
 // import "./Event.css"
 
-class EventForm extends Component {
+class TaskForm extends Component {
   state = {
     name: "",
-    date: "",
-    location: "",
+    text: "",
+    duedate: "",
+    isCompleted: false,
     user_id: +sessionStorage.getItem("activeUser")
   };
 
-  clearFields = () =>
-  {
-      document.getElementById("name").value = ""
-      document.getElementById("date").value = ""
-      document.getElementById("location").value = ""
-  }
-
   checkFields = (event) => {
+    event.preventDefault()
     if (
       this.state.name === "" ||
-      this.state.date === "" ||
-      this.state.location === ""
+      this.state.text === "" ||
+      this.state.duedate === ""
     ) {
       window.alert("All fields must be filled out");
     } else {
-      event.preventDefault()
-      this.props.addItem("events", this.state);
-      this.clearFields()
+      this.props.addItem("tasks", this.state);
     }
   };
 
@@ -40,34 +34,34 @@ class EventForm extends Component {
     //if there is an active user
     return (
       <React.Fragment>
-        <form className="eventForm">
+        <form className="taskForm">
           <div className="form-group">
-            <label htmlFor="name">Event name</label>
+            <label htmlFor="name">Task name</label>
             <input
               type="text"
               required
               className="form-control"
               onChange={this.handleFieldChange}
               id="name"
-              value={this.state.eventName}
+              placeholder="Enter Task Name"
             />
-            <label htmlFor="date">Date</label>
-            <input
-              type="date"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="date"
-              value={this.state.eventDate}
-            />
-            <label htmlFor="location">Location</label>
+            <label htmlFor="text">Task Description</label>
             <input
               type="text"
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="location"
-              value={this.state.eventlocation}
+              id="text"
+              placeholder="Enter Task Description"
+            />
+            <label htmlFor="duedate">Task Due Date</label>
+            <input
+              type="date"
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="duedate"
+              placeholder= "Enter Task Due Date"
             />
             <button
               type="submit"
@@ -83,4 +77,4 @@ class EventForm extends Component {
   }
 }
 
-export default EventForm;
+export default TaskForm;

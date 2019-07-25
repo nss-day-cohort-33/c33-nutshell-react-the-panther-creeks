@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import EventForm from "./EventForm"
 import "./Event.css"
 import moment from "moment"
-import { isRegExp } from "util";
+// import { isRegExp } from "util";
 // import "./Event.css"
 
 class Event extends Component {

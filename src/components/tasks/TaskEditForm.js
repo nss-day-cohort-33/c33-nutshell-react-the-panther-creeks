@@ -1,19 +1,27 @@
-import React, { Component } from "react";
-// import "./Event.css"
-
-class EventForm extends Component {
+class TaskEditForm extends Component {
   state = {
     name: "",
-    date: "",
-    location: "",
-    user_id: +sessionStorage.getItem("activeUser")
+    text: "",
+    duedate: "",
+    isCompleted: false,
+    user_id: "",
+    id: +sessionStorage.getItem("activeUser")
   };
 
-  clearFields = () =>
-  {
-      document.getElementById("name").value = ""
-      document.getElementById("date").value = ""
-      document.getElementById("location").value = ""
+
+
+  componentDidMount() {
+    APIManager.get("tasks", this.props.match.params.eventId)
+    .then(task => {
+      this.setState({
+        id: this.props.match.params.eventId,
+        name: task.name,
+        text: task.text,
+        isCompleted: task.isCompleted,
+        duedate: task.duedate,
+
+      });
+    });
   }
 
   checkFields = (event) => {
@@ -25,8 +33,7 @@ class EventForm extends Component {
       window.alert("All fields must be filled out");
     } else {
       event.preventDefault()
-      this.props.addItem("events", this.state);
-      this.clearFields()
+      this.props.updateItem("events", this.state);
     }
   };
 
@@ -38,6 +45,7 @@ class EventForm extends Component {
 
   render() {
     //if there is an active user
+    console.log(this.props)
     return (
       <React.Fragment>
         <form className="eventForm">
@@ -49,7 +57,7 @@ class EventForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="name"
-              value={this.state.eventName}
+              value={this.state.name}
             />
             <label htmlFor="date">Date</label>
             <input
@@ -58,7 +66,7 @@ class EventForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="date"
-              value={this.state.eventDate}
+              value={this.state.date}
             />
             <label htmlFor="location">Location</label>
             <input
@@ -67,14 +75,14 @@ class EventForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="location"
-              value={this.state.eventlocation}
+              value={this.state.location}
             />
             <button
               type="submit"
               onClick={this.checkFields}
               className="btn btn-primary"
             >
-              Submit
+              Save Changes
             </button>
           </div>
         </form>
@@ -83,4 +91,4 @@ class EventForm extends Component {
   }
 }
 
-export default EventForm;
+export default TaskEditForm;
