@@ -7,11 +7,10 @@ export default class Messages extends Component {
     let moment = require("moment")
     return (
       <React.Fragment>
-        <MessageForm moment={moment}/>
         <section className="messages">
           {
             this.props.messages.map(message => (
-            <div key={message.id} className="card card--message">
+              <div key={message.id} className="card card--message">
               <div className="card-body">
                 <div className="card-title">
                   <p>user #{message.id}</p>
@@ -39,6 +38,7 @@ export default class Messages extends Component {
             ))
           }
         </section>
+        <MessageForm moment={moment}/>
       </React.Fragment>
     )
   }
