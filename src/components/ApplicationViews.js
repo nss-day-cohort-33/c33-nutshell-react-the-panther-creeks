@@ -68,9 +68,9 @@ class ApplicationViews extends Component {
 
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
-    APIManager.getAll(`events?user_id=${+sessionStorage.getItem("activeUser")}`).then(allEvents => {
+    APIManager.getAll(`tasks?user_id=${+sessionStorage.getItem("activeUser")}`).then(allTasks => {
       this.setState({
-        events: allEvents
+        tasks: allTasks
       });
     });
   }
@@ -167,7 +167,7 @@ class ApplicationViews extends Component {
         <Route
           path="/tasks"
           render={props => {
-            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem} updateItem={this.updateItem} />
+            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem} updateItem={this.updateItem} deleteItem={this.deleteItem} />
             else return <Redirect to="/welcome" />
           }}
         />

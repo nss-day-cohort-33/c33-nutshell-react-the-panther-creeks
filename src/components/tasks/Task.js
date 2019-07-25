@@ -1,9 +1,14 @@
 import React, { Component } from "react"
+import TaskCard from "./TaskCard"
 import TaskForm from "./TaskForm"
 import APIManager from "../../modules/APIManager";
-import { KeyObject } from "crypto";
+import "./task.css"
+
+// import { KeyObject } from "crypto";
 
 // import "./Event.css"
+
+//Dustin--Task component to render to DOM
 
 class Task extends Component {
 
@@ -93,7 +98,7 @@ class Task extends Component {
 
 
 
-  hide = {
+ hide = {
     display: "none"
 
   }
@@ -102,56 +107,61 @@ show = {
 }
 
 
-  renderFalseCards = (task) => {
-    if (!task.isCompleted ) {
-      return (
+//   renderFalseCards = (task) => {
+//     if (!task.isCompleted ) {
+//       return (
 
-    <div key={task.id} id={task.id} className="card card--event">
-            <div className="card-body">
-                <div className="card-title">
-                  <div id= {`taskNameDiv-${task.id}`}>
-                  <input type="text"
-                         className="nameInput"
-                         id= {`taskEditForm-${task.id}`}
-                         style= {this.hide}
-                         placeholder= {task.name}
-                         onChange= {this.handleFieldChange}
-                         onKeyPress= {this.saveEditedTask}
-                          />
+//     <div key={task.id} id={task.id} className="card card--event">
+//             <div className="card-body">
+//                 <div className="card-title">
+//                   <div id= {`taskNameDiv-${task.id}`}>
+//                   <input type="text"
+//                          className="nameInput"
+//                          id= {`taskEditForm-${task.id}`}
+//                          style= {this.hide}
+//                          placeholder= {task.name}
+//                          onChange= {this.handleFieldChange}
+//                          onKeyPress= {this.saveEditedTask}
+//                           />
 
-                    <h5
-                      className="taskHead"
-                      style= {this.show}
-                      id= {`taskName-${task.id}`}
-                      onClick=  {this.editTaskName}>{task.name}</h5>
-                  </div>
-                    <h6>{task.text}</h6>
-                    <h5>{task.duedate}</h5>
+//                     <h5
+//                       className="taskHead"
+//                       style= {this.show}
+//                       id= {`taskName-${task.id}`}
+//                       onClick=  {this.editTaskName}>{task.name}</h5>
+//                   </div>
+//                     <h6>{task.text}</h6>
+//                     <h5>{task.duedate}</h5>
 
-                    <input type="checkbox"
-                     id = {task.id}
-                     className ="isComplete"
-                     onClick=  {() => this.taskComplete(task.id)}
-                     />
-                    <label htmlFor= "isComplete">Task Complete</label>
+//                     <input type="checkbox"
+//                      id = {task.id}
+//                      className ="isComplete"
+//                      onClick=  {() => this.taskComplete(task.id)}
+//                      />
+//                     <label htmlFor= "isComplete">Task Complete</label>
 
-                </div>
-            </div>
-        </div>
-    )
-  }
-}
+//                 </div>
+//             </div>
+//         </div>
+//     )
+//   }
+// }
 
   render() {
     //if there is an active user
       console.log(this.props)
       return (
         <React.Fragment>
+         <div>
           <TaskForm {...this.props}/>
-          <section className="Tasks">
+         </div>
+         <section className="tasks">
           {
-            this.props.tasks.filter(task => task.user_id === +sessionStorage.getItem("activeUser") &&!task.isCompleted).map(task =>this.renderFalseCards(task))
+            this.props.tasks.filter(task => (!task.isCompleted)).map(task =>
+              <TaskCard key={task.id} {...this.props} task={task} handleFieldChange={this.handleFieldChange} taskComplete={this.taskComplete} editTaskName = {this.editTaskName} saveEditedTask={this.saveEditedTask} hide={this.hide} show={this.show} />
 
+
+            )
           }
           </section>
         </React.Fragment>
