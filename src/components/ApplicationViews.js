@@ -11,6 +11,7 @@ import Task from "./tasks/Task"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router"
 import EventEditForm from "./events/EventEditForm"
+import Dashboard from "./dash/Dashboard"
 
 class ApplicationViews extends Component {
   state = {
@@ -98,7 +99,7 @@ class ApplicationViews extends Component {
           exact
           path="/"
           render={props => {
-            if (this.isAuthenticated()) return <div>regulare dashboard</div>
+            if (this.isAuthenticated()) return <Dashboard events={this.state.events} tasks={this.state.tasks} articles={this.state.articles}/>
             else return <Redirect to="/welcome" />
           }}
         />
