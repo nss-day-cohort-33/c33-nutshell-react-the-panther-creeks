@@ -16,7 +16,7 @@ class ArticleForm extends Component {
     document.getElementById("url").value = ""
   }
 
-  checkFields = (article) => {
+  checkFields = (event) => {
     if (
       this.state.title === "" ||
       this.state.synopsis === "" ||
@@ -24,7 +24,7 @@ class ArticleForm extends Component {
     ) {
       window.alert("All fields must be filled out");
     } else {
-      article.preventDefault()
+      event.preventDefault()
       this.props.addItem(`articles?user_id=${+sessionStorage.getItem("activeUser")}`, this.state);
       this.clearFields()
     }

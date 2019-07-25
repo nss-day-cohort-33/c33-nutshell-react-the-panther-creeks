@@ -39,7 +39,11 @@ class ApplicationViews extends Component {
   updateItem = (name, editedObject) => {
     let newObj = {}
     return APIManager.put(name, editedObject)
-      .then(() => APIManager.getAll(name))
+      .then(() =>
+        APIManager.getAll(
+          `${name}?user_id=${+sessionStorage.getItem("activeUser")}`
+        )
+      )
       .then(item => {
         newObj[name] = item
         this.setState(newObj)
@@ -50,7 +54,11 @@ class ApplicationViews extends Component {
   addItem = (name, item) => {
     let newObj = {}
     APIManager.post(name, item)
-      .then(() => APIManager.getAll(name))
+      .then(() =>
+        APIManager.getAll(
+          `${name}?user_id=${+sessionStorage.getItem("activeUser")}`
+        )
+      )
       .then(items => {
         newObj[name] = items
         this.setState(newObj)
@@ -61,13 +69,9 @@ class ApplicationViews extends Component {
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
     const newState = {}
-    APIManager.getAll("events")
+    APIManager.getAll(`events?user_id=${+sessionStorage.getItem("activeUser")}`)
       .then(allEvents => (newState.events = allEvents))
-      .then(() =>
-        APIManager.getAll(
-          `articles?user_id=$+sessionStorage.getItem("activeUser")}`
-        )
-      )
+      .then(() => APIManager.getAll(`articles?user_id=${+sessionStorage.getItem("activeUser")}`))
       .then(allArticles => (newState.articles = allArticles))
       .then(() => APIManager.getAll("messages"))
       .then(allMessages => (newState.messages = allMessages))
