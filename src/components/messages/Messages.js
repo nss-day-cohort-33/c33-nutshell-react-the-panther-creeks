@@ -4,11 +4,10 @@ import MessageForm from "./MessageForm"
 
 export default class Messages extends Component {
   render() {
-    console.log(this.props.users)
+    let moment = require("moment")
     return (
       <React.Fragment>
-        <input type="text" id="message" />
-        <button>Send</button>
+        <MessageForm moment={moment}/>
         <section className="messages">
           {
             this.props.messages.map(message => (

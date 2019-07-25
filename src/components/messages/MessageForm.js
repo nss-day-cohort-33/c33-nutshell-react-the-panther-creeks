@@ -1,12 +1,10 @@
 //Joe Kennerly
 import React, { Component } from "react";
 
-class ArticleForm extends Component {
+export default class MessageForm extends Component {
   state = {
-    title: "",
-    date: this.props.moment().format("YYYY-MM-DD"),
-    synopsis: "",
-    url: "",
+    text: "",
+    time: this.props.moment().format(),
     user_id: +sessionStorage.getItem("activeUser")
   };
 
@@ -43,7 +41,7 @@ class ArticleForm extends Component {
       <React.Fragment>
         <form className="articleForm">
           <div className="form-group">
-            <label htmlFor="name">Title</label>
+            <label htmlFor="name">Enter a Message</label>
             <input
               type="text"
               autoFocus
@@ -51,31 +49,6 @@ class ArticleForm extends Component {
               className="form-control"
               onChange={this.handleFieldChange}
               id="title"
-            />
-            {/* <label htmlFor="date">Date</label> */}
-            <input
-              type="hidden"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="date"
-              value={moment().format("YYYY-MM-DD")}
-            />
-            <label htmlFor="synopsis">Synopsis</label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="synopsis"
-            />
-            <label htmlFor="url">URL</label>
-            <input
-              type="text"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="url"
             />
             <button
               type="submit"
@@ -90,5 +63,3 @@ class ArticleForm extends Component {
     );
   }
 }
-
-export default ArticleForm;
