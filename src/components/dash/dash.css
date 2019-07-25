@@ -1,0 +1,14 @@
+.dash {
+  display: flex;
+  flex-flow: row no-wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.card {
+  margin-bottom: 10px;
+}
+
+.articles {
+  flex-direction: column;
+}
