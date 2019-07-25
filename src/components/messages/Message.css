@@ -2,3 +2,6 @@
   display:flex;
   flex-flow: column-reverse wrap;
 }
+.hide {
+  display:none;
+}

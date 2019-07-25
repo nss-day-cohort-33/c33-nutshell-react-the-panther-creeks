@@ -69,6 +69,20 @@ class ApplicationViews extends Component {
       })
       .then(() => this.props.history.push(`/${name}`))
   }
+  addMessage = (name, item) => {
+    let newObj = {}
+    APIManager.post(name, item)
+      .then(() =>
+        APIManager.getAll(
+          `${name}`
+        )
+      )
+      .then(items => {
+        newObj[name] = items
+        this.setState(newObj)
+      })
+      .then(() => this.props.history.push(`/${name}`))
+  }
 
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
@@ -205,9 +219,10 @@ class ApplicationViews extends Component {
               return (
                 <Messages
                   {...props}
+                  friends={this.state.friends}
                   users={this.state.users}
                   messages={this.state.messages}
-                  addItem={this.addItem}
+                  addItem={this.addMessage}
                   deleteItem={this.deleteItem}
                 />
               )
