@@ -11,7 +11,8 @@ class TaskForm extends Component {
     user_id: +sessionStorage.getItem("activeUser")
   };
 
-  checkFields = () => {
+  checkFields = (event) => {
+    event.preventDefault()
     if (
       this.state.name === "" ||
       this.state.text === "" ||

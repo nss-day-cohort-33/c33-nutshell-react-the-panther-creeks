@@ -3,3 +3,6 @@
   flex-direction: row;
 }
 
+.taskHead {
+  cursor: pointer;
+}

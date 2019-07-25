@@ -34,13 +34,6 @@ export default class TaskCard extends Component {
                onClick=  {() => this.props.taskComplete(this.props.task.id)}
                />
               <label htmlFor= "isComplete">Task Complete</label>
-              <div>
-              <button className=" btn btn-danger"
-                      id={this.props.task.id}
-                      onClick={ () => this.props.deleteItem("tasks", this.props.task.id)} >
-                 Delete Task
-              </button>
-              </div>
 
           </div>
       </div>

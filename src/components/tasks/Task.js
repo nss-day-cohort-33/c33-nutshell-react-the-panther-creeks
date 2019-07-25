@@ -149,7 +149,6 @@ show = {
 
   render() {
     //if there is an active user
-      console.log(this.props)
       return (
         <React.Fragment>
          <div>
