@@ -39,6 +39,7 @@ class ApplicationViews extends Component {
     })
   }
 
+
   deleteItem = (name, id) => {
     console.log("inside delete item")
     let newObj = {}
@@ -46,7 +47,8 @@ class ApplicationViews extends Component {
       method: "DELETE"
     })
       .then(e => e.json())
-      .then(() => APIManager.getAll(name))
+      .then(() => APIManager.getAll(`${name}?user_id=${+sessionStorage.getItem("activeUser")}`
+      ))
       .then(group => {
         newObj[name] = group
         this.setState(newObj)
@@ -54,13 +56,42 @@ class ApplicationViews extends Component {
         this.props.history.push(`/${name}`)
       })
   }
-
+  deleteMessage = (name, id) => {
+    console.log("inside delete item")
+    let newObj = {}
+    return fetch(`http://localhost:5002/${name}/${id}`, {
+      method: "DELETE"
+    })
+      .then(e => e.json())
+      .then(() => APIManager.getAll(`${name}`
+      ))
+      .then(group => {
+        newObj[name] = group
+        this.setState(newObj)
+        console.log(name, newObj, this.state)
+        this.props.history.push(`/${name}`)
+      })
+  }
   updateItem = (name, editedObject) => {
     let newObj = {}
     return APIManager.put(name, editedObject)
       .then(() =>
         APIManager.getAll(
           `${name}?user_id=${+sessionStorage.getItem("activeUser")}`
+        )
+      )
+      .then(item => {
+        newObj[name] = item
+        this.setState(newObj)
+      })
+      .then(() => this.props.history.push(`/${name}`))
+  }
+  updateMessage = (name, editedObject) => {
+    let newObj = {}
+    return APIManager.put(name, editedObject)
+      .then(() =>
+        APIManager.getAll(
+          `${name}`
         )
       )
       .then(item => {
@@ -82,6 +113,7 @@ class ApplicationViews extends Component {
         newObj[name] = items
         this.setState(newObj)
       })
+      .then(() => this.props.history.push("/"))
       .then(() => this.props.history.push(`/${name}`))
   }
   addMessage = (name, item) => {
@@ -247,7 +279,7 @@ class ApplicationViews extends Component {
                   users={this.state.users}
                   messages={this.state.messages}
                   addItem={this.addMessage}
-                  deleteItem={this.deleteItem}
+                  deleteItem={this.deleteMessage}
                 />
               )
             else return <Redirect to="/welcome" />
@@ -258,7 +290,7 @@ class ApplicationViews extends Component {
           path="/messages/:messageId(\d+)/edit"
           render={props => {
             if (this.isAuthenticated())
-              return <MessageEditForm {...props} updateItem={this.updateItem} />
+              return <MessageEditForm {...props} updateItem={this.updateMessage} />
             else return <Redirect to="/welcome" />
           }}
         />

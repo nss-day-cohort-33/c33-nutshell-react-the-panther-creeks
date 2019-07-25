@@ -28,7 +28,7 @@ export default class Messages extends Component {
                 return <div key={message.id} className="card card--message">
                   <div className="card-body">
                     <div className="card-title">
-                      <p>user #{message.user_id}</p>
+                      <p>{this.props.users.find(user => user.id=== message.user_id).username}:</p>
                       <p>{message.text}</p>
                       <button
                         type="button"
@@ -70,6 +70,7 @@ export default class Messages extends Component {
                                            }
                                        }
                       >Friend User</button>
+                      <p>{this.props.users.find(user => user.id=== message.user_id).username}:</p>
                       <p>{message.text}</p>
                     </div>
                   </div>
