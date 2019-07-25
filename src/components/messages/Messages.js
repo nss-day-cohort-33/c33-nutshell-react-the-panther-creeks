@@ -1,12 +1,14 @@
 //Joe Kennerly
 import React, { Component } from "react"
 import MessageForm from "./MessageForm"
+import "./Message.css"
 
 export default class Messages extends Component {
   render() {
     let moment = require("moment")
     return (
       <React.Fragment>
+      <MessageForm moment={moment} addItem={this.props.addItem}/>
         <section className="messages">
           {
             this.props.messages.map(message => (
@@ -38,7 +40,6 @@ export default class Messages extends Component {
             ))
           }
         </section>
-        <MessageForm moment={moment} addItem={this.props.addItem}/>
       </React.Fragment>
     )
   }

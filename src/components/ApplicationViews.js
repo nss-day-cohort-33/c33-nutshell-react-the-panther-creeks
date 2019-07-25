@@ -204,6 +204,7 @@ class ApplicationViews extends Component {
             if (this.isAuthenticated())
               return (
                 <Messages
+                  {...props}
                   users={this.state.users}
                   messages={this.state.messages}
                   addItem={this.addItem}
