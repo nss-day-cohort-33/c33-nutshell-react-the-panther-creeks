@@ -9,21 +9,17 @@ export default class MessageForm extends Component {
   };
 
   clearFields = () => {
-    document.getElementById("title").value = ""
-    document.getElementById("synopsis").value = ""
-    document.getElementById("url").value = ""
+    document.getElementById("text").value = ""
   }
 
   checkFields = (event) => {
     if (
-      this.state.title === "" ||
-      this.state.synopsis === "" ||
-      this.state.url === ""
+      this.state.title === ""
     ) {
       window.alert("All fields must be filled out");
     } else {
       event.preventDefault()
-      this.props.addItem(`articles?user_id=${+sessionStorage.getItem("activeUser")}`, this.state);
+      this.props.addItem("messages", this.state);
       this.clearFields()
     }
   };
@@ -35,20 +31,19 @@ export default class MessageForm extends Component {
   };
 
   render() {
-    let moment = require("moment")
     //if there is an active user
     return (
       <React.Fragment>
         <form className="articleForm">
           <div className="form-group">
-            <label htmlFor="name">Enter a Message</label>
+            <label htmlFor="text">Enter a Message</label>
             <input
               type="text"
               autoFocus
               required
               className="form-control"
               onChange={this.handleFieldChange}
-              id="title"
+              id="text"
             />
             <button
               type="submit"

@@ -13,7 +13,7 @@ export default class Messages extends Component {
               <div key={message.id} className="card card--message">
               <div className="card-body">
                 <div className="card-title">
-                  <p>user #{message.id}</p>
+                  <p>user #{message.user_id}</p>
                   <p>{message.text}</p>
                   <button
                     type="button"
@@ -38,7 +38,7 @@ export default class Messages extends Component {
             ))
           }
         </section>
-        <MessageForm moment={moment}/>
+        <MessageForm moment={moment} addItem={this.props.addItem}/>
       </React.Fragment>
     )
   }
