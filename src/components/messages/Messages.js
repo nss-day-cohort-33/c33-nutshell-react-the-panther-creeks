@@ -5,6 +5,17 @@ import "./Message.css"
 
 export default class Messages extends Component {
 
+  newFriends = {
+    user_id: +sessionStorage.getItem("activeUser"),
+    friend_id: ""
+  }
+
+  hide = {
+    display: "none"
+
+  }
+
+
   render() {
     let moment = require("moment")
     return (
@@ -43,7 +54,22 @@ export default class Messages extends Component {
                 return <div key={message.id} className="card card--message">
                   <div className="card-body">
                     <div className="card-title">
-                      <p>user #{message.user_id}</p>
+                      <p id= {`userId-${message.user_id}-${message.id}`}
+
+                      >user #{message.user_id}</p>
+                      <button id={`${message.user_id}-${message.Id}`}
+                              className="addFriend"
+                              onClick=
+                                       {() =>
+                                           {
+                                           let obj = {
+                                               friend_id: message.user_id,
+                                               user_id: +sessionStorage.getItem("activeUser")
+                                           }
+                                           this.props.addItem("friends", obj)
+                                           }
+                                       }
+                      >Friend User</button>
                       <p>{message.text}</p>
                     </div>
                   </div>
