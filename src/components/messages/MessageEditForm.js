@@ -4,10 +4,8 @@ import APIManager from "../../modules/APIManager"
 
 export default class MessageEditForm extends Component {
   state = {
-    title: "",
+    text: "",
     date: "",
-    synopsis: "",
-    url: "",
     user_id: +sessionStorage.getItem("activeUser")
   }
 
