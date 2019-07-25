@@ -13,6 +13,7 @@ import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router"
 import EventEditForm from "./events/EventEditForm"
 import Friends from "./friends/Friends"
+import FriendSearch from "./friends/FriendSearch"
 import Dashboard from "./dash/Dashboard"
 
 class ApplicationViews extends Component {
@@ -21,7 +22,21 @@ class ApplicationViews extends Component {
     articles: [],
     tasks: [],
     messages: [],
-    friends: []
+    friends: [],
+    potentialFriends: []
+  }
+
+  likeItem = (name, word) => {
+    console.log("inside delete item")
+    let newObj = {}
+    return APIManager.getLike(name, word)
+    .then(group => {
+      console.log(group)
+      newObj["potentialFriends"] = group
+      this.setState(newObj)
+      console.log(name, newObj, this.state)
+      this.props.history.push(`/friends/search`)
+    })
   }
 
   deleteItem = (name, id) => {
@@ -137,10 +152,19 @@ class ApplicationViews extends Component {
           }}
         />
 
+
         <Route
           path="/friends"
           render={props => {
-            if (this.isAuthenticated()) return <Friends deleteItem={this.deleteItem} friends={this.state.friends} users={this.state.users}/>
+            if (this.isAuthenticated()) return <Friends likeItem={this.likeItem} deleteItem={this.deleteItem} friends={this.state.friends} users={this.state.users}/>
+            else return <Redirect to="/welcome" />
+          }}
+        />
+
+        <Route
+          path="/friends/search"
+          render={props => {
+            if (this.isAuthenticated()) return <FriendSearch addFriend={this.addItem} potentialFriends={this.state.potentialFriends}/>
             else return <Redirect to="/welcome" />
           }}
         />

@@ -1,18 +1,64 @@
 import React, { Component } from "react"
+import FriendSearch from "./FriendSearch"
 
 class Friends extends Component {
+  state = {
+    text: "",
+    user_id: +sessionStorage.getItem("activeUser")
+  };
+
+  clearFields = () => {
+    document.getElementById("text").value = ""
+  }
+
+  checkFields = (event) => {
+    if (
+      this.state.title === ""
+    ) {
+      window.alert("All fields must be filled out");
+    } else {
+      event.preventDefault()
+      console.log(this.state.text)
+      this.props.likeItem("users", this.state.text)
+      this.clearFields()
+    }
+  };
+
+  handleFieldChange = event => {
+    const stateToChange = {};
+    stateToChange[event.target.id] = event.target.value;
+    this.setState(stateToChange);
+  };
 
   render() {
     // console.log(this.props)
     return (
       <React.Fragment>
+        <form className="articleForm">
+          <div className="form-group">
+            <label htmlFor="text">Search For A Friend</label>
+            <input
+              type="text"
+              autoFocus
+              required
+              className="form-control"
+              onChange={this.handleFieldChange}
+              id="text"
+            />
+            <button
+              type="submit"
+              onClick={this.checkFields}
+              className="btn btn-primary"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
         <section className="friends">
           {this.props.friends
             .filter(
               friend => friend.user_id === +sessionStorage.getItem("activeUser")
             ).map(friendObj => {
-              console.log(friendObj)
-              console.log(this.props)
               return (
                 <div key={friendObj.friend_id}>
                 friend:{" "}
