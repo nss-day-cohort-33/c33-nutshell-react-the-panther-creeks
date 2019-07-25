@@ -7,10 +7,12 @@ import Event from "./events/Event"
 import Articles from "./articles/Articles"
 import ArticleEditForm from "./articles/ArticleEditForm"
 import Messages from "./messages/Messages"
+import MessageEditForm from "./messages/MessageEditForm"
 import Task from "./tasks/Task"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router"
 import EventEditForm from "./events/EventEditForm"
+import Friends from "./friends/Friends"
 
 class ApplicationViews extends Component {
   state = {
@@ -67,19 +69,28 @@ class ApplicationViews extends Component {
       .then(() => this.props.history.push(`/${name}`))
   }
 
-
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
     const newState = {}
     APIManager.getAll(`events?user_id=${+sessionStorage.getItem("activeUser")}`)
       .then(allEvents => (newState.events = allEvents))
-      .then(() => APIManager.getAll(`articles?user_id=${+sessionStorage.getItem("activeUser")}`))
+      .then(() =>
+        APIManager.getAll(
+          `articles?user_id=${+sessionStorage.getItem("activeUser")}`
+        )
+      )
       .then(allArticles => (newState.articles = allArticles))
       .then(() => APIManager.getAll("messages"))
       .then(allMessages => (newState.messages = allMessages))
       .then(() => APIManager.getAll("users"))
       .then(allUsers => (newState.users = allUsers))
-      .then(() => APIManager.getAll(`tasks?user_id=${+sessionStorage.getItem("activeUser")}`))
+      .then(() => APIManager.getAll("friends"))
+      .then(allFriends => (newState.friends = allFriends))
+      .then(() =>
+        APIManager.getAll(
+          `tasks?user_id=${+sessionStorage.getItem("activeUser")}`
+        )
+      )
       .then(allTasks => (newState.tasks = allTasks))
       .then(() => this.setState(newState))
   }
@@ -89,9 +100,6 @@ class ApplicationViews extends Component {
   }
 
   render() {
-
-
-
     return (
       <React.Fragment>
         <Route
@@ -131,7 +139,7 @@ class ApplicationViews extends Component {
         <Route
           path="/friends"
           render={props => {
-            if (this.isAuthenticated()) return <div>friends</div>
+            if (this.isAuthenticated()) return <Friends friends={this.state.friends} users={this.state.users}/>
             else return <Redirect to="/welcome" />
           }}
         />
@@ -206,9 +214,27 @@ class ApplicationViews extends Component {
         />
 
         <Route
+          path="/messages/:messageId(\d+)/edit"
+          render={props => {
+            if (this.isAuthenticated())
+              return <MessageEditForm {...props} updateItem={this.updateItem} />
+            else return <Redirect to="/welcome" />
+          }}
+        />
+
+        <Route
           path="/tasks"
           render={props => {
-            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem} updateItem={this.updateItem} deleteItem={this.deleteItem} />
+            if (this.isAuthenticated())
+              return (
+                <Task
+                  tasks={this.state.tasks}
+                  {...props}
+                  addItem={this.addItem}
+                  updateItem={this.updateItem}
+                  deleteItem={this.deleteItem}
+                />
+              )
             else return <Redirect to="/welcome" />
           }}
         />
