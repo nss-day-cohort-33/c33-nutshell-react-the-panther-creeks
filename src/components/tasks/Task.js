@@ -107,45 +107,6 @@ show = {
 }
 
 
-//   renderFalseCards = (task) => {
-//     if (!task.isCompleted ) {
-//       return (
-
-//     <div key={task.id} id={task.id} className="card card--event">
-//             <div className="card-body">
-//                 <div className="card-title">
-//                   <div id= {`taskNameDiv-${task.id}`}>
-//                   <input type="text"
-//                          className="nameInput"
-//                          id= {`taskEditForm-${task.id}`}
-//                          style= {this.hide}
-//                          placeholder= {task.name}
-//                          onChange= {this.handleFieldChange}
-//                          onKeyPress= {this.saveEditedTask}
-//                           />
-
-//                     <h5
-//                       className="taskHead"
-//                       style= {this.show}
-//                       id= {`taskName-${task.id}`}
-//                       onClick=  {this.editTaskName}>{task.name}</h5>
-//                   </div>
-//                     <h6>{task.text}</h6>
-//                     <h5>{task.duedate}</h5>
-
-//                     <input type="checkbox"
-//                      id = {task.id}
-//                      className ="isComplete"
-//                      onClick=  {() => this.taskComplete(task.id)}
-//                      />
-//                     <label htmlFor= "isComplete">Task Complete</label>
-
-//                 </div>
-//             </div>
-//         </div>
-//     )
-//   }
-// }
 
   render() {
     //if there is an active user
