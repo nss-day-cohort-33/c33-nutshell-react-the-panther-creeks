@@ -1,0 +1,8 @@
+.tasks {
+  display: flex;
+  flex-direction: row;
+}
+
+.taskHead {
+  cursor: pointer;
+}

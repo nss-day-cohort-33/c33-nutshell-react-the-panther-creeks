@@ -7,6 +7,7 @@ import Event from "./events/Event"
 import Articles from "./articles/Articles"
 import ArticleEditForm from "./articles/ArticleEditForm"
 import Messages from "./messages/Messages"
+import Task from "./tasks/Task"
 import APIManager from "../modules/APIManager"
 import { withRouter } from "react-router"
 import EventEditForm from "./events/EventEditForm"
@@ -66,6 +67,7 @@ class ApplicationViews extends Component {
       .then(() => this.props.history.push(`/${name}`))
   }
 
+
   componentDidMount() {
     // Example code. Make this fit into how you have written yours.
     const newState = {}
@@ -77,6 +79,8 @@ class ApplicationViews extends Component {
       .then(allMessages => (newState.messages = allMessages))
       .then(() => APIManager.getAll("users"))
       .then(allUsers => (newState.users = allUsers))
+      .then(() => APIManager.getAll(`tasks?user_id=${+sessionStorage.getItem("activeUser")}`))
+      .then(allTasks => (newState.tasks = allTasks))
       .then(() => this.setState(newState))
   }
 
@@ -204,7 +208,7 @@ class ApplicationViews extends Component {
         <Route
           path="/tasks"
           render={props => {
-            if (this.isAuthenticated()) return <div>tasks</div>
+            if (this.isAuthenticated()) return <Task tasks={this.state.tasks} {...props} addItem={this.addItem} updateItem={this.updateItem} deleteItem={this.deleteItem} />
             else return <Redirect to="/welcome" />
           }}
         />
