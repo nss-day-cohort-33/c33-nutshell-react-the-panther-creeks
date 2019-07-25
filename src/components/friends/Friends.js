@@ -21,6 +21,12 @@ class Friends extends Component {
                       frnd => frnd.id === friendObj.friend_id
                     ).username
                   }
+                <button
+                    onClick={() => this.props.deleteItem("friends", friendObj.id)}
+                    className="card-link"
+                  >
+                    Delete
+                  </button>
                 </div>
               )
             })}
