@@ -1,10 +1,27 @@
 # The Panther Creeks
 
 ### Setup instructions
-### Usage
-### Special Notes
+1. Clone down nutshell repository
+1. Run `npm install` in your terminal
+1. start json-server on port 5002
+1. run `npm start`
 
-# Nutshell: The Information Dashboard
+### Usage
+Register
+1. Register new user by clicking 'Register' button from Welcome Page
+1. Enter Email, username and password
+1. Click 'Register New User' button
+
+Login
+1. Click Login button from Welcome Page
+1. Enter Username and Password
+1. Click 'Login'
+
+Once logged in, users may view all events, articles and tasks in their dashboard. Users can add new entries inside each page
+### Special Notes
+Articles, tasks and events will only display current user's information. All form fields must be properly filled out to submit new entry. New friends can be added from the 'Messages' page.
+
+<!-- # Nutshell: The Information Dashboard
 
 Nutshell is a new product offering that you have been tasked with building. It's a dashboard for people to use to organize their daily tasks, events, news article, friends, and chat messages.
 
@@ -66,4 +83,4 @@ If you want to add a Logout feature, all you need to do it remove the session st
 
 ```js
 sessionStorage.removeItem("activeUser")
-```
+``` -->
