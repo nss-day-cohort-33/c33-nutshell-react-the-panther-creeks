@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import "./task.css"
 
 
-
+//task card component to insert into Dash and on TaskList---Dustin Hobson
 export default class TaskCard extends Component {
   render() {
     return (

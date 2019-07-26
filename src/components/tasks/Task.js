@@ -4,9 +4,6 @@ import TaskForm from "./TaskForm"
 import APIManager from "../../modules/APIManager";
 import "./task.css"
 
-// import { KeyObject } from "crypto";
-
-// import "./Event.css"
 
 //Dustin--Task component to render to DOM
 
@@ -21,7 +18,7 @@ class Task extends Component {
         isCompleted: "",
         user_id: ""
   }
-
+//field change function for editing task name--Dustin Hobson
   handleFieldChange = evt => {
     evt.preventDefault()
     const stateToChange = {}
@@ -31,7 +28,7 @@ class Task extends Component {
     console.log(this.state)
   }
 
-
+//Checkbox function to change isCompleted boolean in database and remove from dom---Dustin Hobson
   taskComplete= (id) => {
     APIManager.get("tasks", id )
     .then(task => {console.log(task)
@@ -47,7 +44,7 @@ class Task extends Component {
       )
       .then(() => this.props.updateItem("tasks", this.state))
   }
-
+//function to pull up input box in place of task name when task name is clicked--Dustin Hobson
   editTaskName = (event) => {
     let otherInputs = document.querySelectorAll(".nameInput")
     let otherTaskHeads = document.querySelectorAll(".taskHead")
@@ -66,7 +63,7 @@ class Task extends Component {
 
 
     }
-
+ //save edited task function that creates object and updates db with it--Dustin Hobson
   saveEditedTask = (event) => {
     if (event.key==="Enter") {
         let id = (event.target.id.split("-")[1])
@@ -97,7 +94,7 @@ class Task extends Component {
 
 
 
-
+//functions to change display of input box and task header name--Dustin Hobson
  hide = {
     display: "none"
 
@@ -107,7 +104,7 @@ show = {
 }
 
 
-
+//renders tasks filtered by if task has a false boolean for isCompleted--Dustin Hobson
   render() {
     //if there is an active user
       return (
