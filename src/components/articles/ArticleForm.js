@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 
 class ArticleForm extends Component {
+
+  //this is the object that will be populated by user-entered-data
   state = {
     title: "",
     date: this.props.moment().format("YYYY-MM-DD"),
