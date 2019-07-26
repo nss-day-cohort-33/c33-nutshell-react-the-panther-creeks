@@ -12,6 +12,8 @@ class ArticleForm extends Component {
     user_id: +sessionStorage.getItem("activeUser")
   };
 
+  //using 'event.preventDefault()' prevents fields from clearing
+  //this function clears them on form submission
   clearFields = () => {
     document.getElementById("title").value = ""
     document.getElementById("synopsis").value = ""
@@ -19,6 +21,7 @@ class ArticleForm extends Component {
   }
 
   checkFields = (event) => {
+    //there must be no empty fields submitted to the db
     if (
       this.state.title === "" ||
       this.state.synopsis === "" ||
@@ -33,6 +36,7 @@ class ArticleForm extends Component {
   };
 
   handleFieldChange = event => {
+    //on button click, save the current value of the entry field
     const stateToChange = {};
     stateToChange[event.target.id] = event.target.value;
     this.setState(stateToChange);

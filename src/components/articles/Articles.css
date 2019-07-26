@@ -1,4 +1,5 @@
 /* Joe Kennerly */
+/* This page reverses the order of the card list so new entries are at the top */
 .articles {
   display: flex;
   flex-flow: column-reverse wrap;

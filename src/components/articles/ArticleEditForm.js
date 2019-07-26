@@ -3,6 +3,8 @@ import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
 
 export default class ArticleEditForm extends Component {
+
+  //set init state
   state = {
     title: "",
     date: "",
@@ -10,6 +12,8 @@ export default class ArticleEditForm extends Component {
     url: "",
     user_id: +sessionStorage.getItem("activeUser")
   }
+
+
 
   componentDidMount() {
     APIManager.get("articles", this.props.match.params.articleId).then(
