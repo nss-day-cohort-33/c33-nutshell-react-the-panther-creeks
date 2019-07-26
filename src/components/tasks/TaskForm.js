@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-// import "./Event.css"
+//set original state with user id as session storage id
 
 class TaskForm extends Component {
   state = {
@@ -23,13 +23,13 @@ class TaskForm extends Component {
       this.props.addItem("tasks", this.state);
     }
   };
-
+  //handle field change EL for form fields when they are changed--Dustin Hobson
   handleFieldChange = event => {
     const stateToChange = {};
     stateToChange[event.target.id] = event.target.value;
     this.setState(stateToChange);
   };
-
+//renders task form when user is in the "Task" section ---Dustin Hoson
   render() {
     //if there is an active user
     return (
@@ -68,6 +68,7 @@ class TaskForm extends Component {
               onClick={this.checkFields}
               className="btn btn-primary"
             >
+
               Submit
             </button>
           </div>
