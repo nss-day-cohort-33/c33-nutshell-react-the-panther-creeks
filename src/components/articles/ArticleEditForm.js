@@ -2,7 +2,9 @@
 import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
 
-class ArticleEditForm extends Component {
+export default class ArticleEditForm extends Component {
+
+  //set init state
   state = {
     title: "",
     date: "",
@@ -10,6 +12,8 @@ class ArticleEditForm extends Component {
     url: "",
     user_id: +sessionStorage.getItem("activeUser")
   }
+
+
 
   componentDidMount() {
     APIManager.get("articles", this.props.match.params.articleId).then(
@@ -26,6 +30,7 @@ class ArticleEditForm extends Component {
   }
 
   checkFields = (event) => {
+    //each form field should have a value, but just in case...
     if (
       this.state.title === "" ||
       this.state.date === "" || this.state.synopsis === "" ||
@@ -39,13 +44,14 @@ class ArticleEditForm extends Component {
   };
 
   handleFieldChange = event => {
+    //when 'save edit article' clicked, save the particlular value
     const stateToChange = {}
     stateToChange[event.target.id] = event.target.value
     this.setState(stateToChange)
   }
 
   render() {
-    //if there is an active user
+    //this copies the articleform, but includes the values from the edited entity
     return (
       <React.Fragment>
         <form className="articleForm">
@@ -99,5 +105,3 @@ class ArticleEditForm extends Component {
     )
   }
 }
-
-export default ArticleEditForm

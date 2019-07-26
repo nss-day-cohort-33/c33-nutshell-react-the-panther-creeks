@@ -1,4 +1,5 @@
-//Joe Kennerly
+//Group
+//Entry form for messages
 import React, { Component } from "react";
 
 export default class MessageForm extends Component {

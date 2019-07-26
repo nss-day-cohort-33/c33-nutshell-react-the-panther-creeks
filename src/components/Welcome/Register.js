@@ -1,3 +1,5 @@
+//Group
+// Post a new username, password, and email to the db
 import React, { Component } from "react"
 
 export default class Register extends Component {

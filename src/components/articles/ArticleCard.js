@@ -1,4 +1,6 @@
 //Joe Kennerly
+
+//This component wasn't implemented, but it was a start on reusable components
 import React, { Component } from "react"
 
 

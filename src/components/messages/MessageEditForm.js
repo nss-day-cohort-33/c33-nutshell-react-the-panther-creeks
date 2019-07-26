@@ -1,4 +1,5 @@
-//Joe Kennerly
+//Group
+//Edit message view, taking values from edited message object
 import React, { Component } from "react"
 import APIManager from "../../modules/APIManager"
 
