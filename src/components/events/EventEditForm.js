@@ -1,8 +1,10 @@
+// Daniel Krusch
 import React, { Component } from "react";
 import APIManager from "../../modules/APIManager";
 // import "./Event.css"
 
 class EventForm extends Component {
+  // State stores the active user and the values from the inputs
   state = {
     name: "",
     date: "",
@@ -10,6 +12,7 @@ class EventForm extends Component {
     user_id: +sessionStorage.getItem("activeUser")
   };
 
+  // Gets the values of a specific event when the edit button is clicked
   componentDidMount() {
     APIManager.get("events", this.props.match.params.eventId)
     .then(event => {
@@ -22,6 +25,7 @@ class EventForm extends Component {
     });
   }
 
+  // Validation to make sure the inputs aren't empty before information is putted to the database
   checkFields = (event) => {
     if (
       this.state.name === "" ||
@@ -30,17 +34,20 @@ class EventForm extends Component {
     ) {
       window.alert("All fields must be filled out");
     } else {
+      // Stops the submit button from refreshing the page
       event.preventDefault()
       this.props.updateItem("events", this.state);
     }
   };
 
+  // When the input has a change, update the state with those values
   handleFieldChange = event => {
     const stateToChange = {};
     stateToChange[event.target.id] = event.target.value;
     this.setState(stateToChange);
   };
 
+  // Like the event form but with the specific valuese of the event you clicked edit on
   render() {
     //if there is an active user
     console.log(this.props)

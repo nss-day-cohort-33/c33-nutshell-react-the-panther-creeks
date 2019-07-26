@@ -4,12 +4,14 @@ import APIManager from "../../modules/APIManager"
 
 export default class FriendSearch extends Component {
 
+  // Renders a list of potential friends
   render() {
-    //if there is an active user
     return (
       <React.Fragment>
         <section className="friends">
         {
+                // Checks the pontential friends array for the active user id
+                // and won't display them if they search for theirself
                 this.props.potentialFriends.map(friend =>
                     {
                         console.log(!friend.id === +sessionStorage.getItem("activeUser"))
@@ -22,6 +24,7 @@ export default class FriendSearch extends Component {
                                     <button
                                         type="button"
                                         className="btn btn-success"
+                                        // When the add button is clicked, update the friend database with some new friends
                                         onClick=
                                         {() =>
                                             {
