@@ -1,7 +1,10 @@
+// Daniel Krusch
 import React, { Component } from "react";
 // import "./Event.css"
 
 class EventForm extends Component {
+  // On input change update the state with the values from the inputs
+  // If the submit button is clicked post the state object to the database
   state = {
     name: "",
     date: "",
@@ -36,6 +39,7 @@ class EventForm extends Component {
     this.setState(stateToChange);
   };
 
+  // Renders an input for name date and location
   render() {
     //if there is an active user
     return (
