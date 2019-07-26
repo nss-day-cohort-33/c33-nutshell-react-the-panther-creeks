@@ -26,6 +26,8 @@ class ApplicationViews extends Component {
     potentialFriends: []
   }
 
+
+  //Methods to be passed to components
   likeItem = (name, word) => {
     console.log("inside delete item")
     let newObj = {}
@@ -131,8 +133,8 @@ class ApplicationViews extends Component {
       .then(() => this.props.history.push(`/${name}`))
   }
 
+  //loading user data to update state object
   componentDidMount() {
-    // Example code. Make this fit into how you have written yours.
     const newState = {}
     APIManager.getAll(`events?user_id=${+sessionStorage.getItem("activeUser")}`)
       .then(allEvents => (newState.events = allEvents))
@@ -157,11 +159,17 @@ class ApplicationViews extends Component {
       .then(() => this.setState(newState))
   }
 
+  // check session storage for value, return true or false
   isAuthenticated = () => {
     return sessionStorage.getItem("activeUser") !== null
   }
 
   render() {
+
+    //route to all views
+    //if "isAuthenticated" returns true, then routes are accessible to users
+    //otherwise, route to welcome page
+
     return (
       <React.Fragment>
         <Route

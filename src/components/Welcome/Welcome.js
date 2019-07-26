@@ -1,3 +1,5 @@
+//Group
+//Default page if session storage has no current value
 import React, { Component } from 'react'
 
 export default class Welcome extends Component {

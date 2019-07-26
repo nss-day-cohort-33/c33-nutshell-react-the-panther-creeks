@@ -1,3 +1,5 @@
+//Group
+//Queries db for user id and sets session storage to id
 import React, { Component } from 'react'
 
 export default class Login extends Component {

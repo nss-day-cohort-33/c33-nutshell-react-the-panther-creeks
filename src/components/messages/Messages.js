@@ -1,19 +1,11 @@
-//Joe Kennerly
+//Group
+//Display entries from all users; users can create relations with other users by clicking "friend user"
+
 import React, { Component } from "react"
 import MessageForm from "./MessageForm"
 import "./Message.css"
 
 export default class Messages extends Component {
-
-  newFriends = {
-    user_id: +sessionStorage.getItem("activeUser"),
-    friend_id: ""
-  }
-
-  hide = {
-    display: "none"
-
-  }
 
 
   render() {
