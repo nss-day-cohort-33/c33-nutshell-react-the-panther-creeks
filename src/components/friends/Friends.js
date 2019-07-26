@@ -1,3 +1,4 @@
+// All of us
 import React, { Component } from "react"
 import FriendSearch from "./FriendSearch"
 
@@ -30,6 +31,7 @@ class Friends extends Component {
     this.setState(stateToChange);
   };
 
+  // Renders a search bar input and a button, with which a user may search for friends if they so desire
   render() {
     return (
       <React.Fragment>
@@ -54,9 +56,11 @@ class Friends extends Component {
           </div>
         </form>
         <section className="friends">
+          {/* Gets the friends data and filters for the friends of the active user */}
           {this.props.friends
             .filter(
               friend => friend.user_id === +sessionStorage.getItem("activeUser")
+              // Then map over the friends and return some divs with the friends name and a button to delete the friend
             ).map(friendObj => {
               return (
                 <div key={friendObj.friend_id}>
