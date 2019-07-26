@@ -61,7 +61,7 @@ export default class Dashboard extends Component {
 
         </div>
 
-        <div className="articles">
+        <div className="dash-articles">
         <h1>Articles</h1>
 
         {
